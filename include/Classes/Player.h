@@ -5,13 +5,17 @@
 struct Player {
     private:
         // ------------------------------------
-                // Class Values
+                // Propeties
+                    
+                    /*  NAME */
                     std::string Name;
+                    /*  HEALTH */
                     int Health;
 
         // ------------------------------------
 
     public:
+
         // ------------------------------------
             // Constructor
             Player(std::string name, const int Health): Name(name), Health(Health) {}
@@ -19,6 +23,7 @@ struct Player {
 
             // Functions Definitions
             std::string TakeDamage(int amout);
+            const int GetHealth();
 
         // ------------------------------------
 };

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "defaults": {
+    "project": "CMakeLists.txt",
+    "projectTarget": "EstudoCpp.exe"
+  },
+  "configurations": [
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "EstudoCpp.exe",
+      "name": "EstudoCpp.exe"
+    }
+  ]
+}
