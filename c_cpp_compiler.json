@@ -1,16 +1,17 @@
 {
     "configurations": [
         {
-            "name": "Win32-GCC",
+            "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src/OGL3D/include",
+                "${workspaceFolder}/build/_deps/raylib-src/src",
+                "${workspaceFolder}/out/build/x64-Debug/_deps/raylib-src/src"
             ],
             "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++20",
-            "intelliSenseMode": "windows-gcc-x64",
-            "configurationProvider": "ms-vscode.cmake-tools"
+            "intelliSenseMode": "windows-gcc-x64"
         }
     ],
     "version": 4

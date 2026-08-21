@@ -6,34 +6,84 @@
 */
 
 #include "Classes/Player.h"
+#include "Classes/Sounds.h"
+#include "OGL3D/Window/OWindow.h"
+#include "raylib.h"
+
+
 
 /*
     SUPPORT FUNC
 */
-Player CreateEntity(std::string Name, const int Health) {
-   Player NewPlayer(Name, Health);
+Player CreateEntity(std::string Name, const int Health, float x = 0.0f, float y = 0.0f) {
+   Player NewPlayer(Name, Health, x, y);
     return NewPlayer;
 }
 
+
+void setupGame(Sound lobbyMusic) {
+	if (!IsSoundPlaying(lobbyMusic)) {
+		PlaySound(lobbyMusic);
+	}
+}
+
 int main() {
-    int TargetDamage;
+	int CurrentMonitor;
+	int MonitorWidth;
+	int MonitorHeight;
+	bool fullSize = true;
+	float dt;
 
-    Player User = CreateEntity("User123", 100);
+	// InitWindow precisa existir ANTES de GetMonitorWidth/Height
+	OWindow window(1280, 720, "Game de Teste");
 
-	int* DamagePoint = &TargetDamage;
+	Image Icon = LoadImage("assets/images/eggsad.png");
+	SetWindowIcon(Icon);
+	UnloadImage(Icon);
 
-	std::cout << "Enter the amount of damage to take: ";
-    std::cin >> TargetDamage;
+	CurrentMonitor = GetCurrentMonitor();
+	MonitorWidth = GetMonitorWidth(CurrentMonitor);
+	MonitorHeight = GetMonitorHeight(CurrentMonitor);
 
-        
-	if (!TargetDamage && TargetDamage < 0) {
-		std::cout << "Damage amount cannot be negative." << std::endl;
-	}
-	else {
-		std::string PrintValue = User.TakeDamage(TargetDamage);
-		std::cout << PrintValue << std::endl;
-	}
+	SetWindowSize(MonitorWidth, MonitorHeight);
+	SetTargetFPS(60);
 
-	std::cout << "Current Health: " << User.GetHealth() << std::endl;
-    return 0;
+	window.SetWindowSize(fullSize);
+
+	Sound lobbyMusic = SoundSetup::SetupMusicMenu();
+	
+	// Setup Entity
+	Player User =  CreateEntity("Jogador", 100, 5, 1);
+
+	while (!WindowShouldClose())    // Detect window close button or ESC key
+    {
+        // Update
+		setupGame(lobbyMusic);
+
+
+        //----------------------------------------------------------------------------------
+		dt = GetFrameTime();
+		User.Update(dt);
+        //----------------------------------------------------------------------------------
+
+        // Draw
+        //----------------------------------------------------------------------------------
+        BeginDrawing();
+
+		ClearBackground(Color{ 25, 25, 35, 255 });
+
+		User.Draw();
+
+		DrawText("WASD / Setas para mover", 20, 20, 20, LIGHTGRAY);
+		DrawFPS(20, 50);
+
+        EndDrawing();
+        //----------------------------------------------------------------------------------
+    }
+
+	UnloadSound(lobbyMusic);
+	CloseAudioDevice();
+
+	// CloseWindow fica no destrutor do OWindow
+	return 0;
 }

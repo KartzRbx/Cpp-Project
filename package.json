@@ -1,0 +1,9 @@
+{
+  "name": "estudocpp",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/dev.js build",
+    "start": "node scripts/dev.js start",
+    "dev": "node scripts/dev.js dev"
+  }
+}
